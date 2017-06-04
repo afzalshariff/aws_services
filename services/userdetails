@@ -1,0 +1,6 @@
+select * from USER_PROFILE;
+
+DESCRIBE USER_PROFILE;
+select * from user;
+
+INSERT INTO USER_PROFILE VALUES('AWS001','default','afzal','shariff','xzpad7254U','HYD','HYD','HYDERABAD','Telangana','INDIA','533001','xyz@test.com','0244865748',current_timestamp);
