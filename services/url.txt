@@ -1,1 +1,3 @@
-http://localhost:8090/services/test/allUserDetails
+http://localhost:8090/services/test/allUserDetails/{persID}
+
+{"password":null,"firstName":"afzal","lastName":"shariff","persID":"xzpad7254U","addressLine1":"ADDRESS_LINE1","addressLine2":"ADDRESS_LINE2","city":"HYDERABAD","state":"Telangana","country":"INDIA","pincode":533001,"emailID":"xyz@test.com","mobileNumber":244865748,"userID":"AWS001"}

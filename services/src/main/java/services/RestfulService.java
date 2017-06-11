@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.aws.services.user.bean.UserDetails;
@@ -20,9 +21,9 @@ public class RestfulService extends SqlConnection {
 	private ResultSet rs;
 
 	@GET
-	@Path("/allUserDetails")
+	@Path("/allUserDetails/{persID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public UserDetails getDetails(){
+	public UserDetails getDetails(@QueryParam("persID") String persID) {
 		userDetails = new UserDetails();
 		service =new RestfulService();
 		service.execute();
@@ -47,11 +48,10 @@ public class RestfulService extends SqlConnection {
 			rs.close();
 		} 
 		catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 
 		return userDetails;
 
-	}
-}
+	}}
