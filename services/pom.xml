@@ -41,6 +41,15 @@
 			<version>2.22.2</version>
 		</dependency>
 
+
+		<!-- With out the below dependency the following error pops out MessageBodyWriter 
+			not found for media type=application/json -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.22.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>jsr311-api</artifactId>
@@ -51,6 +60,12 @@
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
+		</dependency>
+		<!-- MySql Dependency to connect to AWS Data Base -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.40</version>
 		</dependency>
 	</dependencies>
 </project>

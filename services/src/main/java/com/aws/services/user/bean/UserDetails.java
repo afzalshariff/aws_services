@@ -1,11 +1,19 @@
 package com.aws.services.user.bean;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author Afzal-Shariff
  * @version 1.0.0 
  * This class contains the variables of a registered user and  which helps in
  * getting the data from the database.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UserDetails {
 
 	private String userID;
@@ -22,7 +30,7 @@ public class UserDetails {
 	private String emailID;
 	private int mobileNumber;
 	//private LST_UPDT_TS;
-
+	@XmlElement(required=true)
 	public String getUserID() {
 		return userID;
 	}

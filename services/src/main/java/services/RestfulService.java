@@ -1,10 +1,7 @@
 package services;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.annotation.Resource;
 import javax.ws.rs.GET;
@@ -16,50 +13,45 @@ import com.aws.services.user.bean.UserDetails;
 
 @Resource
 @Path("/test")
-@Produces(MediaType.APPLICATION_JSON)
-public class RestfulService {
-	
-	private 	UserDetails details;
-	Connection con = null;
+public class RestfulService extends SqlConnection {
+	private RestfulService service;
+	private UserDetails userDetails;
+	//private DBParameters parameters;
+	private ResultSet rs;
 
 	@GET
+	@Path("/allUserDetails")
+	@Produces(MediaType.APPLICATION_JSON)
 	public UserDetails getDetails(){
-
-		try{
-			Class.forName("com.mysql.jdbc.Driver"); 
-		} catch (Exception e) {
-			System.out.println("Error While connecting to Driver");
-			e.printStackTrace();
-		}
+		userDetails = new UserDetails();
+		service =new RestfulService();
+		service.execute();
+		//parameters = new DBParameters();
+		//parameters.setSqlStatement("select * from USER_PROFILE");
+		rs = service.getResultSet();
 		try {
-			String url ="jdbc:mysql://myrdsinstance.c4vfq4x8xx4n.us-west-2.rds.amazonaws.com:3306/myrdsinstance";
-			String username = "myrdsinstance";
-			String password = "myrdsinstance";
-			con = DriverManager.getConnection(url,username,password);
-
-		} catch(SQLException e){
-			System.out.println("Connection Failed! Please Check console");
+			while(rs.next()){
+				userDetails.setUserID(rs.getString("USERID"));
+				userDetails.setFirstName(rs.getString("FIRST_NAME"));
+				userDetails.setLastName(rs.getString("LAST_NAME"));
+				userDetails.setPersID(rs.getString("PERS_IDENTIFICATION_NO"));
+				userDetails.setAddressLine1("ADDRESS_LINE1");
+				userDetails.setAddressLine2("ADDRESS_LINE2");
+				userDetails.setCity(rs.getString("CITY"));
+				userDetails.setState(rs.getString("STATE"));
+				userDetails.setCountry(rs.getString("COUNTRY"));
+				userDetails.setPincode(rs.getInt("PINCODE"));
+				userDetails.setEmailID(rs.getString("EMAIL_ID"));
+				userDetails.setMobileNumber(rs.getInt("MOBILE_NO"));
+			}
+			rs.close();
+		} 
+		catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
 
+		return userDetails;
 
-		if(con != null) {
-			try{
-				Statement stm = con.createStatement();
-				String sql = "select * from USER_PROFILE";
-				ResultSet rs = stm.executeQuery(sql);
-				while(rs.next()){
-					details = new UserDetails();
-					details.setUserID(rs.getString("USERID"));
-
-				}
-				con.close();
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-
-		}
-		return details;
 	}
 }
